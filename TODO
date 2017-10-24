@@ -13,3 +13,7 @@ Features:
 
     - Make it work on landscape mode.
     - Populate a table.
+
+Etc:
+
+- Fix warning regarding calls to API that require minSdk >= 24.
