@@ -1,0 +1,10 @@
+Code:
+
+- Disable the enter button iff weightText is empty.
+- Ask if wants to overwrite today's weight..
+- Save in external file (or cloud?).
+- Populate a table.
+
+UI:
+
+- Make it work on landscape mode.
