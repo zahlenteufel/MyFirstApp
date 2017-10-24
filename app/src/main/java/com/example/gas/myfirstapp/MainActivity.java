@@ -32,14 +32,12 @@ public class MainActivity extends AppCompatActivity {
         weightText.addTextChangedListener(new TextWatcher() {
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before,
-                                      int count) {
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
                 button.setEnabled(s.length() > 0);
             }
 
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count,
-                                          int after) {
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 // Do nothing.
             }
 
@@ -50,7 +48,9 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    /** Called when the user taps the Send button */
+    /**
+     * Called when the user taps the Send button.
+     */
     public void sendMessage(View view) {
         Intent intent = new Intent(this, Graph.class);
         intent.putExtra(WEIGHT, weightText.getText().toString());
