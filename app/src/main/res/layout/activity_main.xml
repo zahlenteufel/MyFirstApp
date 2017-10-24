@@ -35,6 +35,7 @@
         android:ems="10"
         android:imeOptions="actionDone"
         android:inputType="numberDecimal"
+        android:textSize="30sp"
         app:layout_constraintHorizontal_bias="0.4"
         app:layout_constraintLeft_toLeftOf="@+id/textView"
         app:layout_constraintRight_toLeftOf="@+id/textView2"
