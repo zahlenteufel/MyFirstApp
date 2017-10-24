@@ -1,10 +1,15 @@
-Code:
+Bugs:
 
-- Disable the enter button iff weightText is empty.
-- Ask if wants to overwrite today's weight..
+- The last point in the graph isn't showing.
+
+
+Features:
+
+- Make ok in keyboard transition to the next view.
+- Ask if wants to overwrite today's weight.
 - Save in external file (or cloud?).
 - Populate a table.
 
-UI:
+  - UI:
 
-- Make it work on landscape mode.
+    - Make it work on landscape mode.
