@@ -5,7 +5,6 @@ Bugs:
 
 Features:
 
-- Make ok in keyboard transition to the next view.
 - Ask if wants to overwrite today's weight.
 - Save in external file (or cloud?).
 - Populate a table.
