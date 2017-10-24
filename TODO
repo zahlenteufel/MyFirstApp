@@ -5,10 +5,12 @@ Bugs:
 
 Features:
 
-- Ask if wants to overwrite today's weight.
+- Show today's entered weight if it was there.
+  - Ask if user wants to overwrite today's weight.
 - Save in external file (or cloud?).
-- Populate a table.
 
   - UI:
 
+    - Make weight text larger.
     - Make it work on landscape mode.
+    - Populate a table.
