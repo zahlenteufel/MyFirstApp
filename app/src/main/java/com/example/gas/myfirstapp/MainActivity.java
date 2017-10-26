@@ -23,8 +23,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        weightText = (EditText) findViewById(R.id.weightText);
-        Button enterButton = (Button) findViewById(R.id.enterButton);
+        weightText = findViewById(R.id.weightText);
+        Button enterButton = findViewById(R.id.enterButton);
         disableButtonIffInputEmpty(weightText, enterButton);
         makeDoneButtonOnKeyboardEnterWeight();
     }

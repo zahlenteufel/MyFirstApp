@@ -55,9 +55,9 @@ public class Graph extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        weightsTable = (TableLayout) findViewById(R.id.weightsTable);
+        weightsTable = findViewById(R.id.weightsTable);
+        GraphView graph = findViewById(R.id.graph);
 
-        GraphView graph = (GraphView) findViewById(R.id.graph);
         try {
             DataPoint[] dataPoints = readDataPoints();
             LineGraphSeries<DataPoint> series = new LineGraphSeries<>(dataPoints);
