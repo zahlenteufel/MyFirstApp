@@ -61,7 +61,11 @@ public class Graph extends AppCompatActivity {
         try {
             DataPoint[] dataPoints = readDataPoints();
             LineGraphSeries<DataPoint> series = new LineGraphSeries<>(dataPoints);
+            graph.removeAllSeries();
             graph.addSeries(series);
+            graph.getViewport().setMinX(0);
+            graph.getViewport().setMaxX(dataPoints[dataPoints.length - 1].getX());
+            graph.getViewport().setScalable(true);
             populateWeightsTable(dataPoints);
         } catch (ParseException e) {
             // TODO: Show a popup saying the weight records are invalid and reset them.
