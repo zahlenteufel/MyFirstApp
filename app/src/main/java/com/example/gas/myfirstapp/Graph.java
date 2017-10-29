@@ -7,7 +7,6 @@ import android.icu.text.DateFormat;
 import android.icu.text.SimpleDateFormat;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Pair;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -19,22 +18,22 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Scanner;
+
+import static android.support.v4.util.Preconditions.checkArgument;
 
 public class Graph extends AppCompatActivity {
 
-    private static Date DATE_0 = new Date(2017, 1, 1);
-    private static Date DATE_1 = new Date(2017, 1, 2);
-    private static Date DATE_3 = new Date(2017, 1, 4);
-
-
-    private static Pair[] HARCODED = new Pair[]{
-            Pair.create(DATE_0, 0L), Pair.create(DATE_1, 1L), Pair.create(DATE_3, 3L)
-    };
     public static String RECORD_FILE = "weights.txt";
     private static DateFormat DATE_FORMAT = new SimpleDateFormat("yyyy/MM/dd");
 
@@ -106,32 +105,47 @@ public class Graph extends AppCompatActivity {
 
     private List<Entry> readDataPoints() throws ParseException {
         List<Entry> result = new ArrayList<>();
-        for (Pair p : HARCODED) {
-            Date date = (Date) p.first;
-            long weight = (Long) p.second;
-            result.add(new Entry(date.getTime(), weight));
-        }
 
-//        try (FileInputStream inputStream = openFileInput(RECORD_FILE)) {
-//            InputStreamReader reader = new InputStreamReader(inputStream);
-//            BufferedReader buffreader = new BufferedReader(reader);
-//            String line;
-//            while ((line = buffreader.readLine()) != null) {
-//                Scanner scanIn = new Scanner(line).useDelimiter("\\t");
-//                Date date = DATE_FORMAT.parse(scanIn.next());
-//                java.math.BigDecimal weight = scanIn.nextBigDecimal();
-//                result.add(new Entry((float) date.getTime(), weight.floatValue()));
-//            }
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+        try (FileInputStream inputStream = openFileInput(RECORD_FILE)) {
+            InputStreamReader reader = new InputStreamReader(inputStream);
+            BufferedReader buffreader = new BufferedReader(reader);
+            String line;
+            while ((line = buffreader.readLine()) != null) {
+                Scanner scanIn = new Scanner(line).useDelimiter("\\t");
+                Date date = parseDate(scanIn.next());
+                java.math.BigDecimal weight = scanIn.nextBigDecimal();
+                result.add(new Entry((float) date.getTime(), weight.floatValue()));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return result;
+    }
+
+    private Date parseDate(String next) {
+        String[] parts = next.split("/");
+        checkArgument(parts.length == 3);
+        return createDate(
+                Integer.valueOf(parts[0]),
+                Integer.valueOf(parts[1]) - 1,
+                Integer.valueOf(parts[2]));
     }
 
     // Format the float into a date...
     String formatValue(float value, AxisBase axis) {
-        long timestamp = (long) value;
-        Date date = new Date(timestamp);q
+        Date date = new Date((long) value);
         return DATE_FORMAT.format(date);
+    }
+
+    static Date createDate(int year, int month, int day) {
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.YEAR, year);
+        cal.set(Calendar.MONTH, month);
+        cal.set(Calendar.DAY_OF_MONTH, day);
+        cal.set(Calendar.HOUR_OF_DAY, 0);
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.SECOND, 0);
+        cal.set(Calendar.MILLISECOND, 0);
+        return cal.getTime();
     }
 }
